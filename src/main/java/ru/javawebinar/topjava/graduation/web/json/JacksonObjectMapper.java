@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.graduation.web;
+package ru.javawebinar.topjava.graduation.web.json;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;

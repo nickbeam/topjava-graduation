@@ -1,22 +1,20 @@
-package ru.javawebinar.topjava.graduation.web;
+package ru.javawebinar.topjava.graduation.web.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import ru.javawebinar.topjava.Profiles;
-import ru.javawebinar.topjava.model.AbstractBaseEntity;
-import ru.javawebinar.topjava.model.User;
-import ru.javawebinar.topjava.service.UserService;
-import ru.javawebinar.topjava.to.UserTo;
-import ru.javawebinar.topjava.util.exception.ModificationRestrictionException;
-
+import ru.javawebinar.topjava.graduation.model.AbstractBaseEntity;
+import ru.javawebinar.topjava.graduation.service.UserService;
+import ru.javawebinar.topjava.graduation.to.UserTo;
+import ru.javawebinar.topjava.graduation.util.exception.ModificationRestrictionException;
+import ru.javawebinar.topjava.graduation.model.User;
 import java.util.List;
 
-import static ru.javawebinar.topjava.util.ValidationUtil.assureIdConsistent;
-import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
+import static ru.javawebinar.topjava.graduation.util.ValidationUtil.assureIdConsistent;
+import static ru.javawebinar.topjava.graduation.util.ValidationUtil.checkNew;
+
 
 public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
@@ -29,10 +27,10 @@ public abstract class AbstractUserController {
 
     private boolean modificationRestriction;
 
-    @Autowired
-    public void setEnvironment(Environment environment) {
-        modificationRestriction = environment.acceptsProfiles(Profiles.HEROKU);
-    }
+//    @Autowired
+//    public void setEnvironment(Environment environment) {
+//        modificationRestriction = environment.acceptsProfiles(Profiles.HEROKU);
+//    }
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -44,12 +42,12 @@ public abstract class AbstractUserController {
         return service.getAll();
     }
 
-    public ru.javawebinar.topjava.model.User get(int id) {
+    public User get(int id) {
         log.info("get {}", id);
         return service.get(id);
     }
 
-    public ru.javawebinar.topjava.model.User create(ru.javawebinar.topjava.model.User user) {
+    public User create(User user) {
         log.info("create {}", user);
         checkNew(user);
         return service.create(user);
@@ -61,7 +59,7 @@ public abstract class AbstractUserController {
         service.delete(id);
     }
 
-    public void update(ru.javawebinar.topjava.model.User user, int id) {
+    public void update(User user, int id) {
         log.info("update {} with id={}", user, id);
         assureIdConsistent(user, id);
         checkModificationAllowed(id);
@@ -75,7 +73,7 @@ public abstract class AbstractUserController {
         service.update(userTo);
     }
 
-    public ru.javawebinar.topjava.model.User getByMail(String email) {
+    public User getByMail(String email) {
         log.info("getByEmail {}", email);
         return service.getByEmail(email);
     }
