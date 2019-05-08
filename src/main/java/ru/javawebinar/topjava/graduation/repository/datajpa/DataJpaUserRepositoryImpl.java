@@ -1,9 +1,10 @@
-package ru.javawebinar.topjava.graduation.repository;
+package ru.javawebinar.topjava.graduation.repository.datajpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.graduation.model.User;
+import ru.javawebinar.topjava.graduation.repository.UserRepository;
 
 import java.util.List;
 
@@ -40,7 +41,12 @@ public class DataJpaUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getWithMeals(int id) {
-        return crudRepository.getWithMeals(id);
+    public User getWithDishes(int id) {
+        return crudRepository.getWithDishes(id);
+    }
+
+    @Override
+    public User getWithVotes(int id) {
+        return crudRepository.getWithVotes(id);
     }
 }
