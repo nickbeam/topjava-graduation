@@ -30,13 +30,6 @@ public interface DishRepository extends JpaRepository<Dish, Integer> {
     @Override
     Optional<Dish> findById(Integer id);
 
-    @Override
-    List<Dish> findAll(Sort sort);
-
-    @SuppressWarnings("JpaQlInspection")
-    @Query("SELECT d from Dish d WHERE d.restaurant.id=:restaurantId AND d.date BETWEEN :date AND :date ORDER BY d.date DESC")
-    List<Dish> getByDate(LocalDate date, int restaurantId);
-
-    @Query("SELECT d FROM Dish d WHERE d.restaurant.id=?1 ORDER BY d.date DESC")
-    List<Dish> getByRestaurant(int id);
+    @Query("SELECT d FROM Dish d WHERE d.restaurant.id=:id AND d.date=:date ORDER BY d.name ASC")
+    List<Dish> getByRestaurantAndDate(@Param("id") int id, @Param("date") LocalDate date);
 }
