@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.graduation.model.Restaurant;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,12 +33,13 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     @Override
     List<Restaurant> findAll(Sort sort);
 
-    //    https://stackoverflow.com/a/46013654/548473
-    @EntityGraph(attributePaths = {"dishes"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT r FROM Restaurant r WHERE r.id=?1")
-    Restaurant getWithDishes(int id);
+    @Query("SELECT r FROM Restaurant r LEFT JOIN FETCH r.dishes d WHERE r.id=:id AND d.date=:date")
+    Restaurant getRestaurantWithDishes(@Param("id") int id, @Param("date") LocalDate date);
+
+    @Query("SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.dishes d WHERE d.date=:date ORDER BY r.name")
+    List<Restaurant> getAllRestaurantWithDishes(@Param("date") LocalDate date);
 
     @EntityGraph(attributePaths = {"votes"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT r FROM Restaurant r WHERE r.id=?1")
-    Restaurant getWithVotes(int id);
+    @Query("SELECT r FROM Restaurant r WHERE r.id=:id")
+    Restaurant getWithVotes(@Param("id") int id);
 }
