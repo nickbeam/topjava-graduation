@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User get(int id) throws NotFoundException {
-        return checkNotFoundWithId(repository.get(id), id);
+        return checkNotFoundWithId(repository.getOne(id), id);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Cacheable("users")
     @Override
     public List<User> getAll() {
-        return repository.getAll();
+        return repository.findAll();
     }
 
     @CacheEvict(value = "users", allEntries = true)
@@ -96,10 +96,5 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException("User " + email + " is not found");
         }
         return new AuthorizedUser(user);
-    }
-
-    @Override
-    public User getWithMeals(int id) {
-        return checkNotFoundWithId(repository.getWithMeals(id), id);
     }
 }

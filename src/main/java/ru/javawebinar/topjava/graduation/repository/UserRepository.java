@@ -1,28 +1,35 @@
 package ru.javawebinar.topjava.graduation.repository;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.graduation.model.User;
 
 import java.util.List;
 
-public interface UserRepository {
+
+@Repository
+@Transactional(readOnly = true)
+public interface UserRepository extends JpaRepository<User, Integer> {
+
+    @Override
+    @Transactional
     User save(User user);
 
-    // false if not found
-    boolean delete(int id);
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM User u WHERE u.id=:id")
+    int delete(@Param("id") int id);
 
-    // null if not found
-    User get(int id);
+    @Override
+    User getOne(Integer id);
 
-    List<User> getAll();
+    @Override
+    List<User> findAll(Sort sort);
 
-    // null if not found
     User getByEmail(String email);
-
-    default User getWithDishes(int id) {
-        throw new UnsupportedOperationException();
-    }
-
-    default User getWithVotes(int id) {
-        throw new UnsupportedOperationException();
-    }
 }

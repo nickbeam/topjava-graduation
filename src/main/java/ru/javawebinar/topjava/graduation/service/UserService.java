@@ -18,13 +18,11 @@ public interface UserService {
 
     User getByEmail(String email) throws NotFoundException;
 
-    void update(User user);
+    void update(User user) throws NotFoundException;
 
-    void update(UserTo user);
+    void update(UserTo user) throws NotFoundException;
 
     List<User> getAll();
 
     void enable(int id, boolean enable);
-
-    User getWithMeals(int id);
 }
