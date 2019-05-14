@@ -9,6 +9,8 @@ import java.util.List;
 public interface VoteService {
     Vote create(Vote vote, int restaurantId, int userId);
 
+    void vote(int userId, int restaurantId);
+
     List<Vote> findByUserId(int userId);
 
     Vote findByUserIdAndDate(int userId, LocalDate date) throws NotFoundException;
