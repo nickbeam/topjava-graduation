@@ -9,11 +9,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.graduation.model.Restaurant;
-
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
-
 
 @Repository
 @Transactional(readOnly = true)
@@ -28,7 +25,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     int delete(@Param("id") int id);
 
     @Override
-    Optional<Restaurant> findById(Integer id);
+    Restaurant getOne(Integer id);
 
     @Override
     List<Restaurant> findAll(Sort sort);
