@@ -24,18 +24,18 @@
 
     <tx:annotation-driven/>
 
-    <jdbc:embedded-database id="dataSource" type="HSQL">
+    <jdbc:embedded-database id="dataSource">
         <jdbc:script location="classpath:db/initDB_hsql.sql"/>
         <jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql"/>
     </jdbc:embedded-database>
 
     <!--no pooling-->
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-          p:driverClassName="org.hsqldb.jdbcDriver"
-          p:url="${database.url}"
-          p:username="${database.username}"
-          p:password="${database.password}"/>
+<!--    <bean id="dataSource"-->
+<!--          class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
+<!--          p:driverClassName="org.hsqldb.jdbcDriver"-->
+<!--          p:url="${database.url}"-->
+<!--          p:username="${database.username}"-->
+<!--          p:password="${database.password}"/>-->
     <!--    </beans>-->
 
     <!--    <beans profile="tomcat">-->

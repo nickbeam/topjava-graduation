@@ -11,10 +11,10 @@ public interface RestaurantService {
 
     void delete(int id) throws NotFoundException;
 
+    void update(Restaurant restaurant) throws NotFoundException;
+
     Restaurant get(int id) throws NotFoundException;
 
-    void update(Restaurant restaurant) throws NotFoundException;
-    
     List<Restaurant> getAll();
 
     Restaurant getRestaurantWithDishes(int id, LocalDate date) throws NotFoundException;

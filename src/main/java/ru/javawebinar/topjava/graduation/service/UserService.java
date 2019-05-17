@@ -14,15 +14,15 @@ public interface UserService {
 
     void delete(int id) throws NotFoundException;
 
-    User get(int id) throws NotFoundException;
-
-    User getByEmail(String email) throws NotFoundException;
-
     void update(User user) throws NotFoundException;
 
     void update(UserTo user) throws NotFoundException;
 
+    User get(int id) throws NotFoundException;
+
     List<User> getAll();
+
+    User getByEmail(String email) throws NotFoundException;
 
     void enable(int id, boolean enable);
 }

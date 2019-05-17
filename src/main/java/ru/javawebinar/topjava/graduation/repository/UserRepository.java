@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.graduation.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -26,7 +27,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     int delete(@Param("id") int id);
 
     @Override
-    User getOne(Integer id);
+    Optional<User> findById(Integer id);
 
     @Override
     List<User> findAll(Sort sort);
