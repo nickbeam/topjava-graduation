@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.graduation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.javawebinar.topjava.graduation.model.Vote;
 import ru.javawebinar.topjava.graduation.repository.RestaurantRepository;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+@Service("voteService")
 public class VoteServiceImpl implements VoteService {
     private final VoteRepository repository;
     private final UserRepository userRepository;

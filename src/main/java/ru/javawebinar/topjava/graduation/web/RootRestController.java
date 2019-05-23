@@ -3,15 +3,15 @@ package ru.javawebinar.topjava.graduation.web;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javawebinar.topjava.graduation.model.User;
 import ru.javawebinar.topjava.graduation.service.UserService;
 import ru.javawebinar.topjava.graduation.to.UserTo;
+import ru.javawebinar.topjava.graduation.util.UserUtil;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -33,7 +33,8 @@ public class RootRestController {
         this.service = service;
     }
 
-    @PostMapping(value = REST_URL)
+    @PostMapping(value = REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<User> register(@Valid @RequestBody UserTo userTo) {
         log.info("Register {}", userTo);
         checkNew(userTo);

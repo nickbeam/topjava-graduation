@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javawebinar.topjava.graduation.model.Restaurant;
 import ru.javawebinar.topjava.graduation.service.RestaurantService;
-import ru.javawebinar.topjava.graduation.web.user.AdminRestController;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -18,11 +17,11 @@ import static ru.javawebinar.topjava.graduation.util.ValidationUtil.assureIdCons
 import static ru.javawebinar.topjava.graduation.util.ValidationUtil.checkNew;
 
 @RestController
-@RequestMapping(value = AdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = RestaurantAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantAdminRestController {
     private static final Logger LOG = LoggerFactory.getLogger(RestaurantAdminRestController.class);
 
-    private static final String REST_URL = "/rest/admin/restaurants";
+    public static final String REST_URL = "/rest/admin/restaurants";
 
     private final RestaurantService service;
 

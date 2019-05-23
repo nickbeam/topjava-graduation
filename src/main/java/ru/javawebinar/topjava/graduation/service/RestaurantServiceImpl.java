@@ -24,14 +24,14 @@ public class RestaurantServiceImpl implements RestaurantService {
         this.repository = repository;
     }
 
-    @CacheEvict(value = "restaurants", allEntries = true)
+    //@CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public Restaurant create(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
         return repository.save(restaurant);
     }
 
-    @CacheEvict(value = "restaurants", allEntries = true)
+    //@CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(repository.delete(id), id);
@@ -39,17 +39,17 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Restaurant get(int id) throws NotFoundException {
-        return checkNotFoundWithId(repository.getOne(id), id);
+        return checkNotFoundWithId(repository.findById(id).orElse(null), id);
     }
 
-    @CacheEvict(value = "restaurants", allEntries = true)
+    //@CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public void update(Restaurant restaurant) throws NotFoundException {
         Assert.notNull(restaurant, "restaurant must not be null");
         checkNotFoundWithId(repository.save(restaurant), restaurant.getId());
     }
 
-    @Cacheable("restaurants")
+    //@Cacheable("restaurants")
     @Override
     public List<Restaurant> getAll() {
         return repository.findAll();
@@ -60,7 +60,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         return repository.getRestaurantWithDishes(id, date);
     }
 
-    @Cacheable("restaurants")
+    //@Cacheable("restaurants")
     @Override
     public List<Restaurant> getAllRestaurantWithDishes(LocalDate date) {
         return repository.getAllRestaurantWithDishes(date);
