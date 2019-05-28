@@ -34,7 +34,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     //@CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public void delete(int id) throws NotFoundException {
-        checkNotFoundWithId(repository.delete(id), id);
+        checkNotFoundWithId(repository.delete(id) != 0, id);
     }
 
     @Override
@@ -46,6 +46,9 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public void update(Restaurant restaurant) throws NotFoundException {
         Assert.notNull(restaurant, "restaurant must not be null");
+        if (restaurant.getId() == null) {
+            throw new NotFoundException("restaurant must be present in database");
+        }
         checkNotFoundWithId(repository.save(restaurant), restaurant.getId());
     }
 

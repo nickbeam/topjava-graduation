@@ -67,8 +67,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @CacheEvict(value = "users", allEntries = true)
     @Override
-    public void update(User user) {
+    public void update(User user) throws NotFoundException {
         Assert.notNull(user, "user must not be null");
+        if (user.getId() == null) {
+            throw new NotFoundException("user must be present in database");
+        }
         checkNotFoundWithId(repository.save(prepareToSave(user, passwordEncoder)), user.getId());
     }
 
