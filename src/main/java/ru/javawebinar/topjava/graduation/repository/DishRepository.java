@@ -10,6 +10,7 @@ import ru.javawebinar.topjava.graduation.model.Dish;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
@@ -24,7 +25,7 @@ public interface DishRepository extends JpaRepository<Dish, Integer> {
     int delete(@Param("id") int id, @Param("restaurantId") int restaurantId);
 
     @Override
-    Dish getOne(Integer id);
+    Optional<Dish> findById(Integer id);
 
     @Query("SELECT d FROM Dish d WHERE d.restaurant.id=:id AND d.date=:date ORDER BY d.name ASC")
     List<Dish> getByRestaurantAndDate(@Param("id") int id, @Param("date") LocalDate date);

@@ -38,9 +38,4 @@ public class RestaurantTestData {
     public static ResultMatcher contentJson(Restaurant expected) {
         return result -> assertMatch(TestUtil.readFromJsonMvcResult(result, Restaurant.class), expected);
     }
-
-    public static String jsonWithPassword(Restaurant restaurant, String passw) {
-        return JsonUtil.writeAdditionProps(restaurant, "password", passw);
-    }
-
 }

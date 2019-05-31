@@ -25,7 +25,7 @@ public class DishServiceImpl implements DishService {
     @Override
     public Dish create(Dish dish, int restaurantId) {
         Assert.notNull(dish, "dish must not be null");
-        dish.setRestaurant(restaurantRepository.getOne(restaurantId));
+        dish.setRestaurant(restaurantRepository.findById(restaurantId).orElse(null));
         return repository.save(dish);
     }
 
@@ -36,13 +36,13 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public Dish get(int id, int restaurantId) throws NotFoundException {
-        return repository.findById(id).filter(dish -> dish.getRestaurant().getId() == restaurantId).orElse(null);
+        return checkNotFoundWithId(repository.findById(id).filter(dish -> dish.getRestaurant().getId() == restaurantId).orElse(null), id);
     }
 
     @Override
     public void update(Dish dish, int restaurantId) throws NotFoundException {
         Assert.notNull(dish, "dish must not be null");
-        checkNotFoundWithId(repository.getOne(dish.getId()), dish.getId());
+        checkNotFoundWithId(repository.findById(dish.getId()), dish.getId());
         create(dish, restaurantId);
     }
 
